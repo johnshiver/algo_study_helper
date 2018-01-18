@@ -4,12 +4,6 @@ import sys
 TEMPLATE_FILE = "helper_files/problem_template"
 PROBLEMS_DIR = "problems/"
 
-"""
-INSTRUCTIONS
-main
-test_case_inputs_outputs
-"""
-
 
 if __name__ == "__main__":
 

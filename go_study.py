@@ -3,13 +3,14 @@ import random
 
 ESSENTIAL_DIRS = {
     "PROBLEM_FILES": "problems/",
-    "STUDY_LOGS": ".study_logs/"
+    "STUDY_LOGS": ".study_logs/",
+
 }
 
 
 def initialize():
     for dir_ in ESSENTIAL_DIRS.values():
-        if not os.path.exists(dir_) and os.path.isdir(dir_):
+        if not os.path.exists(dir_):
             os.makedirs(dir_)
 
 
@@ -42,11 +43,12 @@ def generate_scratch_pad_and_test_file_from_problem_file(problem_file):
             os.remove(f)
 
     test_template = """import unittest
+import os
 
 from scratch import main
 from {} import solution
 
-class MyTest(unittest.TestCase):
+class {}Test(unittest.TestCase):
     """
 
     test_method = """
@@ -61,25 +63,34 @@ Instructions\n{}
 
 def main(args):
     # your code here
+    return
     """.format(imported_problem.INSTRUCTIONS)
 
     test_tail = """
 if __name__ == '__main__':
-    unittest.main()
+    log_file = ".study_logs/{}.log"
+    if os.path.exists(log_file):
+        file_mode = "a"
+    else:
+        file_mode = "w"
+    with open(log_file, file_mode) as f:
+        runner = unittest.TextTestRunner(f)
+        unittest.main(testRunner=runner)
     """
 
-    test_template = test_template.format(imported_problem_path)
+    problem_name = imported_problem_path.lstrip("problems").replace(".", "")
+    print("Now studying the {} problem".format(problem_name))
+
+    test_template = test_template.format(imported_problem_path,
+                                         problem_name.title())
     for x, y in enumerate(imported_problem.test_case_inputs):
         test_template += test_method.format(x, y, y)
 
-    test_template += test_tail
+    test_template += test_tail.format(problem_name)
     with open(test_file_name, "w") as test_file:
         test_file.write(test_template)
     with open(scratch_file_name, "w") as scratch_file:
         scratch_file.write(problem_template)
-
-    problem_name = imported_problem_path.lstrip("problems").replace(".", "")
-    print("Now studying the {} problem".format(problem_name))
 
 
 def main():
