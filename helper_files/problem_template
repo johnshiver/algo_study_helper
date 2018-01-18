@@ -1,6 +1,9 @@
 INSTRUCTIONS = """
 """
 
-test_case_inputs_ouptputs = [
-       (, )
+def solution(inputs):
+    """
+    """
+
+test_case_inputs = [
 ]

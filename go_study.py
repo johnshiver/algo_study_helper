@@ -29,8 +29,8 @@ def get_problem():
 def generate_scratch_pad_and_test_file_from_problem_file(problem_file):
     from importlib import import_module
 
-    imported_problem = problem_file.replace("/", ".")
-    imported_problem = import_module(imported_problem)
+    imported_problem_path = problem_file.replace("/", ".")
+    imported_problem = import_module(imported_problem_path)
 
     scratch_file_name = "scratch.py"
     test_file_name = "test_scratch.py"
@@ -43,22 +43,23 @@ def generate_scratch_pad_and_test_file_from_problem_file(problem_file):
         if os.path.exists(f):
             os.remove(f)
 
-    test_template = """
-import unittest
+    test_template = """import unittest
 
 from scratch import main
+from {} import solution
 
 class MyTest(unittest.TestCase):
     """
 
     test_method = """
     def test{}(self):
-        self.assertEqual(main({}), {})
+        self.assertEqual(main({}), solution({}))
     """
 
     problem_template = """
-
-'''Instructions\n{}'''
+'''
+Instructions\n{}
+'''
 
 def main(args):
     # your code here
@@ -68,8 +69,10 @@ def main(args):
 if __name__ == '__main__':
     unittest.main()
     """
-    for x, y in enumerate(imported_problem.test_case_inputs_ouptputs):
-        test_template += test_method.format(x, y[0], y[1])
+
+    test_template = test_template.format(imported_problem_path)
+    for x, y in enumerate(imported_problem.test_case_inputs):
+        test_template += test_method.format(x, y, y)
 
     test_template += test_tail
     with open(test_file_name, "w") as test_file:
