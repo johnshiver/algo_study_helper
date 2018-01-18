@@ -80,6 +80,9 @@ if __name__ == '__main__':
     with open(scratch_file_name, "w") as scratch_file:
         scratch_file.write(problem_template)
 
+    problem_name = imported_problem_path.lstrip("problems").replace(".", "")
+    print("Now studying the {} problem".format(problem_name))
+
 
 def main():
     initialize()
