@@ -1,7 +1,5 @@
-import glob
 import os
 import random
-
 
 ESSENTIAL_DIRS = {
     "PROBLEM_FILES": "problems/",

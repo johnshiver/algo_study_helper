@@ -1,7 +1,6 @@
 import shutil
 import sys
 
-
 TEMPLATE_FILE = "helper_files/problem_template"
 PROBLEMS_DIR = "problems/"
 
