@@ -64,9 +64,9 @@ to .study_logs/<problem_name>.log.
 
 ### See long term results
 
-'''
+```
 python3 generate_study_report.py
-'''
+```
 
 generate_study_report condenses all log files into a single readable display,
 so you can get an idea of which problems you have trouble with / which ones
