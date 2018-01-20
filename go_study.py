@@ -1,6 +1,9 @@
 import os
 import random
 
+# help from here on the logging:
+# https://stackoverflow.com/questions/4414234/getting-pythons-unittest-results-in-a-teardown-method
+
 ESSENTIAL_DIRS = {
     "PROBLEM_FILES": "problems/",
     "STUDY_LOGS": ".study_logs/",
@@ -42,13 +45,43 @@ def generate_scratch_pad_and_test_file_from_problem_file(problem_file):
         if os.path.exists(f):
             os.remove(f)
 
-    test_template = """import unittest
+    test_template = """import datetime
+import unittest
 import os
 
 from scratch import main
 from {} import solution
 
 class {}Test(unittest.TestCase):
+    errors = 0
+    log_file = '{}'
+
+    def __del__(self):
+        with open(self.log_file, "a") as f:
+            if self.errors:
+                log_string = "Errors: " + str(self.errors)
+            else:
+                log_string = "Pass"
+            now = datetime.datetime.now()
+            now = now.strftime('%Y-%m-%d-%H:%M:%S | ')
+            f.write(now + log_string + '\\n')
+
+    def tearDown(self):
+        if hasattr(self, '_outcome'):  # Python 3.4+
+            result = self.defaultTestResult()  # these 2 methods have no side effects
+            self._feedErrorsToResult(result, self._outcome.errors)
+        else:  # Python 3.2 - 3.3 or 3.0 - 3.1 and 2.7
+            result = getattr(self, '_outcomeForDoCleanups', self._resultForDoCleanups)
+        error = self.list2reason(result.errors)
+        failure = self.list2reason(result.failures)
+        ok = not error and not failure
+
+        if not ok:
+            self.errors += 1
+
+    def list2reason(self, exc_list):
+        if exc_list and exc_list[-1][0] is self:
+            return exc_list[-1][1]
     """
 
     test_method = """
@@ -68,21 +101,16 @@ def main(args):
 
     test_tail = """
 if __name__ == '__main__':
-    log_file = ".study_logs/{}.log"
-    if os.path.exists(log_file):
-        file_mode = "a"
-    else:
-        file_mode = "w"
-    with open(log_file, file_mode) as f:
-        runner = unittest.TextTestRunner(f)
-        unittest.main(testRunner=runner)
+    unittest.main()
     """
 
     problem_name = imported_problem_path.lstrip("problems").replace(".", "")
     print("Now studying the {} problem".format(problem_name))
 
+    log_file_name = ".study_logs/" + problem_name + ".log"
     test_template = test_template.format(imported_problem_path,
-                                         problem_name.title())
+                                         problem_name.title(),
+                                         log_file_name)
     for x, y in enumerate(imported_problem.test_case_inputs):
         test_template += test_method.format(x, y, y)
 
