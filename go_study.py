@@ -1,7 +1,7 @@
 import os
 import random
 
-# help from here on the logging:
+# thanks SO for help on tracking unit test results in tearDown method
 # https://stackoverflow.com/questions/4414234/getting-pythons-unittest-results-in-a-teardown-method
 
 ESSENTIAL_DIRS = {
@@ -43,6 +43,9 @@ def generate_scratch_pad_and_test_file_from_problem_file(problem_file):
     for f in useful_files:
         if os.path.exists(f):
             os.remove(f)
+
+    # TODO: these strings are super messy
+    #       should probably just be templates
 
     test_template = """import datetime
 import unittest

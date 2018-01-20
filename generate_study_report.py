@@ -32,7 +32,8 @@ lines = "-" * 30
 print("Study Stats")
 print(lines)
 for result in final_results:
-    print(result.problem_name.title() + "\n")
+    print(result.problem_name.title())
+    print(lines)
     print("Passes: " + str(result.passes))
     print("Fails: " + str(result.fails))
     print("Study days: " + str(result.days))
