@@ -7,7 +7,6 @@ import random
 ESSENTIAL_DIRS = {
     "PROBLEM_FILES": "problems/",
     "STUDY_LOGS": ".study_logs/",
-
 }
 
 
@@ -57,6 +56,8 @@ class {}Test(unittest.TestCase):
     log_file = '{}'
 
     def __del__(self):
+        # when tests finish, delete is called on the class
+        # writes final output to log file
         with open(self.log_file, "a") as f:
             if self.errors:
                 log_string = "Errors: " + str(self.errors)
@@ -67,6 +68,7 @@ class {}Test(unittest.TestCase):
             f.write(now + log_string + '\\n')
 
     def tearDown(self):
+        # records whether or not a test case resulted in failure
         if hasattr(self, '_outcome'):  # Python 3.4+
             result = self.defaultTestResult()  # these 2 methods have no side effects
             self._feedErrorsToResult(result, self._outcome.errors)
