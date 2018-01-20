@@ -25,9 +25,9 @@ There are no third party dependencies for this project, this is intentional :)
 
 ### Create a problem
 
-'''
+```
 python3 create_problem_file.py
-'''
+```
 
 Creates new problem file in problems dir, stubs out the data structures
 you need to define in order to hook into go_study command properly.
@@ -42,9 +42,9 @@ and the user solution, comparing the two outputs for equality.
 
 ### Study problems
 
-'''
+```
 python3 go_study.py
-'''
+```
 
 The go_study command picks a random problem from the problems directory,
 and generates scratch.py and test_scratch.py files (or overwrites them if
@@ -54,9 +54,9 @@ in scratch.py
 
 ### Test solution
 
-'''
+```
 python3 test_scratch.py
-'''
+```
 
 test_scratch.py runs the auto-generated test suite, and logs the results
 to .study_logs/<problem_name>.log.
