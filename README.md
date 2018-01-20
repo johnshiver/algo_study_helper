@@ -11,15 +11,12 @@ single report using the generate_study_report.py command.
 This project has a directory of existing problems, but includes tools
 to easily add your own.
 
-**DISCLAIMER**
-
-So far I have only tested this project with python 3.5, I am fairly sure
-my insruction prompts will not execute using python 2.X, but otherwise the
-code should mostly be compatible.
-
 ## Installation
 
-There are no third party dependencies for this project, this is intentional :)
+There are no third party dependencies for this project, BUT So far I have
+only tested this project with python 3.5. I am fairly sure
+my insruction prompts include unicode and will not execute using python 2.X,
+but otherwise the code should mostly be compatible.
 
 ## Workflow
 
