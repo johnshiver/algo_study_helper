@@ -91,7 +91,14 @@ class {}Test(unittest.TestCase):
 
     test_method = """
     def test{}(self):
-        self.assertEqual(main({}), solution({}))
+        ans, e_time = main({})
+        sol, e2_time = solution({})
+        self.assertEqual(ans, sol)
+        # normalize execution times
+        e_time *= 1000000
+        e2_time *= 1000000
+        import math
+        self.assertLess(e_time, e2_time*math.log(e2_time))
     """
 
     problem_template = """
@@ -99,6 +106,9 @@ class {}Test(unittest.TestCase):
 Instructions\n{}
 '''
 
+from utils.decorators import time_this
+
+@time_this
 def main(args):
     # your code here
     return

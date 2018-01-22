@@ -1,6 +1,9 @@
 INSTRUCTIONS = """
 """
 
+from utils.decorators import time_this
+
+@time_this
 def solution(inputs):
     """
     """

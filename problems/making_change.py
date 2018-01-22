@@ -20,6 +20,9 @@ your program would output 4—the number of ways to make 4¢ with those denomina
 2¢, 2¢
 """
 
+from utils.decorators import time_this
+
+@time_this
 def solution(inputs):
     amount, denominations = inputs
     ways_of_doing_n_cents = [0] * (amount + 1)
