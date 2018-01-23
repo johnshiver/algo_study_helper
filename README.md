@@ -20,23 +20,6 @@ but otherwise the code should mostly be compatible.
 
 ## Workflow
 
-### Create a problem
-
-```
-python3 create_problem_file.py
-```
-
-Creates new problem file in problems dir, stubs out the data structures
-you need to define in order to hook into go_study command properly.
-
-INSTRUCTIONS should be a string, defining the instructions of the problem.
-
-solution is a function that defines the ideal solution.
-
-test_case_inputs should be all the inputs you want to study again.  the
-auto-generated test cases simply send the test_inputs to both the ideal solution
-and the user solution, comparing the two outputs for equality.
-
 ### Study problems
 
 ```
@@ -68,3 +51,21 @@ python3 generate_study_report.py
 generate_study_report condenses all log files into a single readable display,
 so you can get an idea of which problems you have trouble with / which ones
 you should spend more time on.
+
+### Create a problem
+
+```
+python3 create_problem_file.py
+```
+
+Creates new problem file in problems dir, stubs out the data structures
+you need to define in order to hook into go_study command properly.
+
+INSTRUCTIONS should be a string, defining the instructions of the problem.
+
+solution is a function that defines the ideal solution.
+
+test_case_inputs should be all the inputs you want to study again.  the
+auto-generated test cases simply send the test_inputs to both the ideal solution
+and the user solution, comparing the two outputs for equality.
+
