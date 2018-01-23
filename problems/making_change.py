@@ -36,6 +36,14 @@ def solution(inputs):
 
     return ways_of_doing_n_cents[amount]
 
-test_case_inputs = [
-    [4, [1,2,3]]
-]
+
+def generate_test_input():
+    import random
+    final = []
+    for _ in range(100):
+        amt = random.randint(4, 1000)
+        denoms = [random.randint(1, 25) for _ in range(3)]
+        final.append([amt, denoms])
+    return final
+
+test_case_inputs = generate_test_input()

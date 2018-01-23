@@ -88,7 +88,7 @@ class {}Test(unittest.TestCase):
         e_time *= 1000000
         e2_time *= 1000000
         import math
-        self.assertLess(e_time, e2_time*math.log(e2_time))
+        self.assertLess(e_time, e2_time*math.log(e2_time)*10)
     """
 
     problem_template = """
@@ -109,9 +109,8 @@ if __name__ == '__main__':
     try:
         unittest.main()
     finally:
+        # log results of unittest
         log_file = '{}'
-        # when tests finish, delete is called on the class
-        # writes final output to log file
         with open(log_file, "a") as f:
             if errors:
                 log_string = "Errors: " + str(errors)
