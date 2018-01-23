@@ -1,6 +1,6 @@
 import os
 import random
-
+import sys
 # thanks SO for help on tracking unit test results in tearDown method
 # https://stackoverflow.com/questions/4414234/getting-pythons-unittest-results-in-a-teardown-method
 
@@ -54,21 +54,9 @@ import os
 from scratch import main
 from {} import solution
 
-class {}Test(unittest.TestCase):
-    errors = 0
-    log_file = '{}'
+errors = 0
 
-    def __del__(self):
-        # when tests finish, delete is called on the class
-        # writes final output to log file
-        with open(self.log_file, "a") as f:
-            if self.errors:
-                log_string = "Errors: " + str(self.errors)
-            else:
-                log_string = "Pass"
-            now = datetime.datetime.now()
-            now = now.strftime('%Y-%m-%d-%H:%M:%S | ')
-            f.write(now + log_string + '\\n')
+class {}Test(unittest.TestCase):
 
     def tearDown(self):
         # records whether or not a test case resulted in failure
@@ -81,8 +69,10 @@ class {}Test(unittest.TestCase):
         failure = self.list2reason(result.failures)
         ok = not error and not failure
 
+        global errors
+
         if not ok:
-            self.errors += 1
+            errors += 1
 
     def list2reason(self, exc_list):
         if exc_list and exc_list[-1][0] is self:
@@ -116,7 +106,20 @@ def main(args):
 
     test_tail = """
 if __name__ == '__main__':
-    unittest.main()
+    try:
+        unittest.main()
+    finally:
+        log_file = '{}'
+        # when tests finish, delete is called on the class
+        # writes final output to log file
+        with open(log_file, "a") as f:
+            if errors:
+                log_string = "Errors: " + str(errors)
+            else:
+                log_string = "Pass"
+            now = datetime.datetime.now()
+            now = now.strftime('%Y-%m-%d-%H:%M:%S | ')
+            f.write(now + log_string + '\\n')
     """
 
     problem_name = imported_problem_path.lstrip("problems").replace(".", "")
@@ -124,12 +127,11 @@ if __name__ == '__main__':
 
     log_file_name = ".study_logs/" + problem_name + ".log"
     test_template = test_template.format(imported_problem_path,
-                                         problem_name.title(),
-                                         log_file_name)
+                                         problem_name.title())
     for x, y in enumerate(imported_problem.test_case_inputs):
         test_template += test_method.format(x, y, y)
 
-    test_template += test_tail.format(problem_name)
+    test_template += test_tail.format(log_file_name)
     with open(test_file_name, "w") as test_file:
         test_file.write(test_template)
     with open(scratch_file_name, "w") as scratch_file:
@@ -138,7 +140,17 @@ if __name__ == '__main__':
 
 def main():
     initialize()
-    curr_problem = get_problem()
+    if len(sys.argv) > 1:
+        problem_file = sys.argv[1]
+        if not os.path.exists("problems/" + problem_file + ".py"):
+            raise ValueError("Problem: {} doesnt exist!".format(problem_file))
+            exit()
+
+        else:
+            curr_problem = "problems/" + problem_file
+    else:
+        curr_problem = get_problem()
+
     generate_scratch_pad_and_test_file_from_problem_file(curr_problem)
 
 if __name__ == "__main__":
