@@ -7,9 +7,9 @@ def check_equal(root1, root2):
         return True
 
     if root1 is not None and root2 is not None:
-        return [(root1.val == root2.val) and
+        return ((root1.val == root2.val) and
                 check_equal(root1.left, root2.left) and
-                check_equal(root1.right, root2.right)]
+                check_equal(root1.right, root2.right))
     return False
 
 
