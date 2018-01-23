@@ -15,7 +15,11 @@ to
  / \   / \
 9   6 3   1
 
-Input: Tree root
+Input: tree serialized as string
+
+To deserialize:
+    from data_structures.tree import deserialize
+    root = deserialize(inputs)
 
 # Definition for a binary tree node.
 # class TreeNode(object):
