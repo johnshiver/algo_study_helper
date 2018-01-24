@@ -3,16 +3,16 @@ INSTRUCTIONS = """
 Invert a binary tree.
 
      4
-   /   \
+   /   \\
   2     7
- / \   / \
+ / \   / \\
 1   3 6   9
 
 to
      4
-   /   \
+   /   \\
   7     2
- / \   / \
+ / \   / \\
 9   6 3   1
 
 Input: tree serialized as string
@@ -49,7 +49,7 @@ def invert_binary_tree(root):
 
 
 def generate_test_inputs():
-    return ["'{}'".format(create_random_tree_string()) for _ in range(100)]
+    return ["'{}'".format(create_random_tree_string()) for _ in range(1000)]
 
 
 test_case_inputs = generate_test_inputs()

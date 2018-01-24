@@ -1,4 +1,4 @@
-# thanks StefanPochmann!
+# thanks StefanPochmann for deserialize + drawtree
 # https://discuss.leetcode.com/topic/16600/tree-deserializer-and-visualizer-for-python
 
 
@@ -24,6 +24,18 @@ class TreeNode:
 
     def __eq__(self, root):
         return check_equal(self, root)
+
+    def binary_tree_add(self, val):
+        if val > self.val:
+            if not self.right:
+                self.right = TreeNode(val)
+            else:
+                self.right.binary_tree_add(val)
+        else:
+            if not self.left:
+                self.left = TreeNode(val)
+            else:
+                self.left.binary_tree_add(val)
 
 
 def create_random_tree_string():
@@ -53,7 +65,15 @@ def deserialize(string):
     return root
 
 
+def serialize(root):
+    queue = [root]
+    vals = (queue.extend((node.left, node.right)) or str(node.val) if node else 'None'
+            for node in queue)
+    return '[' + ','.join(vals).strip('nul,') + ']'
+
+
 def drawtree(root):
+
     def height(root):
         return 1 + max(height(root.left), height(root.right)) if root else -1
 
@@ -70,6 +90,7 @@ def drawtree(root):
             draw(node.left, x - dx, y - 60, dx / 2)
             jumpto(x, y - 20)
             draw(node.right, x + dx, y - 60, dx / 2)
+
     import turtle
     t = turtle.Turtle()
     t.speed(0)

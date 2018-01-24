@@ -40,7 +40,7 @@ def solution(inputs):
 def generate_test_input():
     import random
     final = []
-    for _ in range(100):
+    for _ in range(1000):
         amt = random.randint(4, 1000)
         denoms = [random.randint(1, 25) for _ in range(3)]
         final.append([amt, denoms])
