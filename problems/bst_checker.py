@@ -15,20 +15,27 @@ from data_structures.tree import TreeNode, serialize, deserialize
 
 @time_this
 def solution(root):
+    from collections import namedtuple
+    root = deserialize(args)
+    if not root:
+        return True
+    node_limits_stack = []
+    n_limit = namedtuple('namedtuple', ['node', 'lower', 'upper'])
+    node_limits_stack.append(n_limit(root, -float('inf'), float('inf')))
+    while len(node_limits_stack):
+        curr, lower, upper = node_limits_stack.pop()
 
-    root = deserialize(root)
-    node_and_bounds_stack = [(root, -float('inf'), float('inf'))]
-
-    while len(node_and_bounds_stack):
-        node, lower_bound, upper_bound = node_and_bounds_stack.pop()
-
-        if (node.val <= lower_bound) or (node.val >= upper_bound):
+        if curr.val <= lower or curr.val >= upper:
             return False
 
-        if node.left:
-            node_and_bounds_stack.append((node.left, lower_bound, node.val))
-        if node.right:
-            node_and_bounds_stack.append((node.right, node.val, upper_bound))
+        if curr.left:
+            node_limits_stack.append(n_limit(node=curr.left,
+                                             lower=lower,
+                                             upper=curr.val))
+        if curr.right:
+            node_limits_stack.append(n_limit(node=curr.right,
+                                             lower=curr.val,
+                                             upper=upper))
 
     return True
 
