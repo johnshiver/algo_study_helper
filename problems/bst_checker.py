@@ -8,6 +8,10 @@ The node's value is greater than all values in the left subtree.
 The node's value is less than all values in the right subtree.
 BSTs are useful for quick lookups.
 
+To deserialize input:
+    from data_structures.tree deserialize
+    root = deserialize(args)
+
 """
 
 from utils.decorators import time_this
@@ -16,7 +20,7 @@ from data_structures.tree import TreeNode, serialize, deserialize
 @time_this
 def solution(root):
     from collections import namedtuple
-    root = deserialize(args)
+    root = deserialize(root)
     if not root:
         return True
     node_limits_stack = []
