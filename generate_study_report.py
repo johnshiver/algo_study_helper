@@ -13,6 +13,7 @@ log_result = namedtuple("log_result", ['problem_name', 'passes',
                                        'fails', 'days'])
 final_results = []
 all_logs = os.listdir(study_dir)
+total_days = []
 for log_file in all_logs:
     problem_name = log_file.replace(".log", "")
     passes, fails, days = 0, 0, []
@@ -23,6 +24,7 @@ for log_file in all_logs:
                 fails += 1
             else:
                 passes += 1
+    total_days += days
     days = len(set(days))
     result = log_result(problem_name=problem_name, passes=passes,
                         fails=fails, days=days)
@@ -30,6 +32,8 @@ for log_file in all_logs:
 
 lines = "-" * 30
 print("Study Stats")
+print(lines)
+print("Total study days: {}".format(len(set(total_days))))
 print(lines)
 for result in sorted(final_results, key=lambda x: x.days, reverse=True):
     print(result.problem_name.title())

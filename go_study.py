@@ -85,8 +85,8 @@ class {}Test(unittest.TestCase):
         sol, e2_time = solution({})
         self.assertEqual(ans, sol)
         # normalize execution times
-        e_time *= 1000000
-        e2_time *= 1000000
+        e_time *= 100000000
+        e2_time *= 100000000
         import math
         self.assertLess(e_time, e2_time*math.log(e2_time)*10)
     """

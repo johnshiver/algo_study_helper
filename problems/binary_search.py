@@ -33,7 +33,7 @@ def generate_random_test_case():
     array = [random.randrange(1, 1000000) for _ in range(100)]
     array = sorted(list(set(array)))
     if (random.random() * 10) < 6:
-        num = random.randint(1, len(array)-1)
+        num = random.choice(array)
     else:
         num = 23098234082340
     return (num, array)

@@ -9,7 +9,7 @@ The node's value is less than all values in the right subtree.
 BSTs are useful for quick lookups.
 
 To deserialize input:
-    from data_structures.tree deserialize
+    from data_structures.tree import deserialize
     root = deserialize(args)
 
 """
