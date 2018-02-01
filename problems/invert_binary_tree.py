@@ -19,7 +19,7 @@ Input: tree serialized as string
 
 To deserialize:
     from data_structures.tree import deserialize
-    root = deserialize(inputs)
+    root = deserialize(args)
 
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -34,8 +34,8 @@ from utils.decorators import time_this
 from data_structures.tree import create_random_tree_string, deserialize
 
 @time_this
-def solution(inputs):
-    root = deserialize(inputs)
+def solution(args):
+    root = deserialize(args)
     return invert_binary_tree(root)
 
 

@@ -33,7 +33,7 @@ for log_file in all_logs:
 lines = "-" * 30
 print("Study Stats")
 print(lines)
-print("Total study days: {}".format(len(set(total_days))))
+print("Total study days: {}\n".format(len(set(total_days))))
 print(lines)
 for result in sorted(final_results, key=lambda x: x.days, reverse=True):
     print(result.problem_name.title())
