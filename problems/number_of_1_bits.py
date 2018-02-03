@@ -10,8 +10,6 @@ from utils.decorators import time_this
 
 @time_this
 def solution(inputs):
-    """
-	"""
     n = inputs
     count = 0
     while n:
@@ -20,7 +18,6 @@ def solution(inputs):
         # shift bits to right by 1
         n >>= 1
     return count
-
 
 
 import random

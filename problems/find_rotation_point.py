@@ -25,9 +25,10 @@ Write a function for finding the index of the "rotation point," which is where I
 
 from utils.decorators import time_this
 
+
 @time_this
 def solution(inputs):
-	first_word = words[0]
+    first_word = words[0]
     floor_index = 0
     ceiling_index = len(words) - 1
 
