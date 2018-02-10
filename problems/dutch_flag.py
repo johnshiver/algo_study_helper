@@ -1,10 +1,8 @@
 INSTRUCTIONS = """
-Given an array and pivot index, partition array into values
+Given a pivot index and array, partition array into values
 smaller than pivot, values equal to pivot, and values larger than pivot.
 """
-
 from utils.decorators import time_this
-
 @time_this
 def solution(inputs):
     pivot_i, a = inputs
@@ -31,8 +29,8 @@ import random
 def generate_random_array():
     return [random.randint(1, 1000) for _ in range(1000)]
 
-test_case_inputs = [(random.randint(0, 7500), generate_random_array())
-                     for _ in range(1000)]
+test_case_inputs = [(random.randint(0, 750), generate_random_array())
+                    for _ in range(1000)]
 
 
 
