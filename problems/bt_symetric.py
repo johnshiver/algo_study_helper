@@ -28,7 +28,7 @@ from utils.decorators import time_this
 from data_structures.tree import create_random_tree_string, deserialize
 
 @time_this
-def solution(inputs):
+def solution(args):
     root = deserialize(args)
     if not root:
         raise ValueError("root was null, must pass in a tree object")
